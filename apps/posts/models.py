@@ -11,7 +11,8 @@ class Post(models.Model):
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
     def __str__(self):
-        return f'Фото{self.photo} - Автор{self.author}'
+        return f'Фото - {self.photo}, Автор - {self.author}'
+
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     text = models.TextField()
@@ -23,13 +24,14 @@ class Comment(models.Model):
         verbose_name_plural = "Комментарии"
 
     def __str__(self):
-        return f'Пост{self.post} - Автор{self.author}'
+        return f'Пост - {self.post}, Автор - {self.author}'
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Пост{self.post} - Автор{self.user}'
+        return f'Пост - {self.post}, Автор - {self.user}'
     class Meta:
         verbose_name = "Лайк"
         verbose_name_plural = "Лайки"
+
