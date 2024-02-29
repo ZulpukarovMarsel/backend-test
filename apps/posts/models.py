@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import pre_delete
 
 class Post(models.Model):
     photo = models.ImageField(upload_to='post_photo')
@@ -12,6 +14,12 @@ class Post(models.Model):
         verbose_name_plural = "Посты"
     def __str__(self):
         return f'Фото - {self.photo}, Автор - {self.author}'
+
+# Это функция удаляеть фото из базы данных если пост удаляеться
+@receiver(pre_delete, sender=Post)
+def delete_post_photo(sender, instance, **kwargs):
+    instance.photo.delete()
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
