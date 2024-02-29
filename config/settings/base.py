@@ -22,7 +22,7 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
-
+    'apps.posts',
 ]
 INSTALLED_APPS = [
     *DJANGO_APPS,
