@@ -1,10 +1,10 @@
+import os
 from pathlib import Path
 from config.settings.env_reader import env, csv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 WSGI_APPLICATION = 'config.wsgi.application'
 PRODUCTION = env("PRODUCTION", default=False, cast=bool)
-
 
 THIRD_PARTY_APPS = [
     'rest_framework',
@@ -86,7 +86,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -98,12 +97,16 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+from config.settings.jazzmin import *
 
 if PRODUCTION:
     from .production import *
