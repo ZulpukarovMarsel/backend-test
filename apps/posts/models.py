@@ -10,6 +10,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
+        ordering = ['-created_at']
         verbose_name = "Пост"
         verbose_name_plural = "Посты"
     def __str__(self):
@@ -28,6 +29,7 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
+        ordering = ['-created_at']
         verbose_name = "Комментария"
         verbose_name_plural = "Комментарии"
 

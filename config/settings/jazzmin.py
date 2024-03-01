@@ -1,7 +1,7 @@
 JAZZMIN_SETTINGS = {
     "site_title": "Админ",
-    "site_header": "Post",
-    "site_brand": "Post",
+    "site_header": "Админ",
+    "site_brand": "Админ",
     "site_logo": None,
     "login_logo": None,
     "login_logo_dark": None,
