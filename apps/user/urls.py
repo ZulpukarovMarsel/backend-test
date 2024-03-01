@@ -3,7 +3,7 @@ from .views import SignUpAPIView, SignInAPIView, LogoutAPIView
 
 urlpatterns = [
     # path('accounts/', include('allauth.urls')),
-    path('sign_up/', SignUpAPIView.as_view()),
-    path('sign_in/', SignInAPIView.as_view()),
-    path('sign_out/', LogoutAPIView.as_view()),
+    path('sign_up/', SignUpAPIView.as_view(), name='sign_up'),
+    path('sign_in/', SignInAPIView.as_view(), name='sign_in'),
+    path('sign_out/', LogoutAPIView.as_view(), name='sign_out'),
 ]
