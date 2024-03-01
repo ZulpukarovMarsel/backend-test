@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from .pagination import Pagination
 from .services import PostService, CommentService, LikesService
@@ -13,7 +13,7 @@ class PostListView(generics.ListCreateAPIView):
     pagination_class = Pagination
     filter_backends = [DjangoFilterBackend]
     filterset_class = PostFilter
-    permission_classes = []
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, *args, **kwargs):
         try:
@@ -26,7 +26,7 @@ class PostListView(generics.ListCreateAPIView):
 class PostDetailView(generics.RetrieveAPIView):
     queryset = PostService.get_class_post()
     serializer_class = PostSerializer
-    permission_classes = []
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     lookup_field = 'id'
 
     def retrieve(self, request, *args, **kwargs):
@@ -52,9 +52,9 @@ class CommentListView(generics.ListCreateAPIView):
     queryset = CommentService.get_class_comment()
     serializer_class = CommentSerializer
     pagination_class = Pagination
-    permission_classes = []
+    permission_classes = [permissions.IsAuthenticated]
 
 class LikeListView(generics.ListCreateAPIView):
     queryset = LikesService.get_class_likes()
     serializer_class = LikeSerializer
-    permission_classes = []
+    permission_classes = [permissions.IsAuthenticated]
