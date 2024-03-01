@@ -4,10 +4,15 @@ from rest_framework.response import Response
 from .pagination import Pagination
 from .services import PostService, CommentService, LikesService
 from .serializers import PostSerializer, CommentSerializer, LikeSerializer
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import PostFilter
+
 class PostListView(generics.ListCreateAPIView):
     queryset = PostService.get_class_post()
     serializer_class = PostSerializer
     pagination_class = Pagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = PostFilter
     permission_classes = []
 
 
@@ -40,5 +45,4 @@ class CommentListView(generics.ListCreateAPIView):
 class LikeListView(generics.ListCreateAPIView):
     queryset = LikesService.get_class_likes()
     serializer_class = LikeSerializer
-    pagination_class = Pagination
     permission_classes = []
