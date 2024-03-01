@@ -5,7 +5,8 @@ from config.settings import base
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include('apps.posts.urls'))
+    path('api/v1/', include('apps.posts.urls')),
+    path('api-auth/', include('apps.user.urls'))
 ]
 
 if base.DEBUG:

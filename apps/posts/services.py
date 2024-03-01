@@ -1,3 +1,5 @@
+from django.db.models import Count
+
 from .models import Post, Comment, Like
 
 class PostService:

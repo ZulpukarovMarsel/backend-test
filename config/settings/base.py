@@ -5,9 +5,12 @@ from config.settings.env_reader import env, csv
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 WSGI_APPLICATION = 'config.wsgi.application'
 PRODUCTION = env("PRODUCTION", default=False, cast=bool)
+AUTH_USER_MODEL = 'user.User'
+ROOT_URLCONF = 'config.urls'
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
 
 ]
@@ -19,11 +22,12 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_filters'
+    'django_filters',
 ]
 
 PROJECT_APPS = [
     'apps.posts',
+    'apps.user'
 ]
 
 INSTALLED_APPS = [
@@ -33,6 +37,9 @@ INSTALLED_APPS = [
 
 ]
 
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('Bearer', ),
+}
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -52,8 +59,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
