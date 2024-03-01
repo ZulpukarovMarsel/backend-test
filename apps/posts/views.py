@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
-
+from .pagination import Pagination
 from .services import PostService, CommentService, LikesService
 from .serializers import PostSerializer, CommentSerializer, LikeSerializer
 class PostListView(generics.ListCreateAPIView):
     queryset = PostService.get_class_post()
     serializer_class = PostSerializer
+    pagination_class = Pagination
     permission_classes = []
 
 
@@ -33,9 +34,11 @@ class PostDetailView(generics.RetrieveAPIView):
 class CommentListView(generics.ListCreateAPIView):
     queryset = CommentService.get_class_comment()
     serializer_class = CommentSerializer
+    pagination_class = Pagination
     permission_classes = []
 
 class LikeListView(generics.ListCreateAPIView):
     queryset = LikesService.get_class_likes()
     serializer_class = LikeSerializer
+    pagination_class = Pagination
     permission_classes = []
