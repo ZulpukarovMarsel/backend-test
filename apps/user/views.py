@@ -60,7 +60,7 @@ class LogoutAPIView(generics.CreateAPIView):
             serializer.is_valid(raise_exception=True)
             token = RefreshToken(serializer.validated_data['refresh'])
             token.blacklist()
-            return response.Response(data={"detail": "Success", "status": status.HTTP_200_OK})
+            return response.Response(data={"detail": "Успешно!", "status": status.HTTP_200_OK})
         except Exception as e:
             return response.Response(data={"error": f"{e}"}, status=status.HTTP_204_NO_CONTENT)
 
