@@ -6,6 +6,7 @@ from .services import PostService, CommentService, LikesService
 from .serializers import PostSerializer, CommentSerializer, LikeSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import PostFilter
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class PostListView(generics.ListCreateAPIView):
     queryset = PostService.get_class_post()
@@ -13,6 +14,7 @@ class PostListView(generics.ListCreateAPIView):
     pagination_class = Pagination
     filter_backends = [DjangoFilterBackend]
     filterset_class = PostFilter
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request, *args, **kwargs):
@@ -26,6 +28,7 @@ class PostListView(generics.ListCreateAPIView):
 class PostDetailView(generics.RetrieveAPIView):
     queryset = PostService.get_class_post()
     serializer_class = PostSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     lookup_field = 'id'
 
@@ -48,13 +51,16 @@ class PostDetailView(generics.RetrieveAPIView):
             return Response({"error": "Пост не найдено"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"error": f"Не удалось получить сведения о публикации. {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 class CommentListView(generics.ListCreateAPIView):
     queryset = CommentService.get_class_comment()
     serializer_class = CommentSerializer
     pagination_class = Pagination
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
 class LikeListView(generics.ListCreateAPIView):
     queryset = LikesService.get_class_likes()
     serializer_class = LikeSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]

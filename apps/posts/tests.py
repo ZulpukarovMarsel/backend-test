@@ -22,7 +22,6 @@ class PostModelTest(TestCase):
         self.assertEqual(post.author, self.user)
         self.assertEqual(Post.objects.count(), 1)
 
-
 class CommentModelTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
